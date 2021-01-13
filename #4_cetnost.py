@@ -15,5 +15,13 @@ for prvek in seznam_prvku:
     for znak in prvek:
         seznam_znaku.append(znak)
 
+cetnost = {}
+for znak in seznam_znaku:
+    if znak in cetnost.keys():
+        cetnost[znak] = cetnost[znak]+1
+    else:
+        cetnost[znak] = 1
+
 # TODO: Ulozeni vystupu do .txt souboru
-print(seznam_znaku)
+for znak_klic,znak_pocet in cetnost.items():
+    print(f"Počet '{znak_klic}' v souboru je {znak_pocet}.")
