@@ -24,5 +24,6 @@ seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
 
 prunik = prunik(seznam1,seznam2)
 
+# TODO: Sort output?
 # TODO: Ulozeni vystupu do .txt souboru
 print(prunik)
