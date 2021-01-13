@@ -1,12 +1,28 @@
+# >> FUNKCE <<
+def nacteni(nazev_souboru):
+    # TODO: Docstring
+    # TODO: Osetreni chybnych vstupu - souborove chyby, vstupy nejsou cisla...
+    with open(nazev_souboru, mode='r', encoding='utf-8') as data:
+        hodnoty = data.read()
+    return(hodnoty)
 
-seznam1 = [5,3,4,8,2,2,6,5,8,5]
-seznam2 = [2,1,1,1,1,5,8,9,9,9,1,2]
-seznam_prunik = []
+def prunik(seznam_hodnot1,seznam_hodnot2):
+    # TODO: Docstring
+    seznam_prunik = []
+    for cislo in seznam_hodnot1:
+        if cislo in seznam_hodnot2:
+            if cislo not in seznam_prunik:
+                seznam_prunik.append(cislo)
+    return(seznam_prunik)
 
-for cislo in seznam1:
-    if cislo in seznam2:
-        if cislo not in seznam_prunik:
-            seznam_prunik.append(cislo)
 
+# >> PROGRAM <<
+hodnoty1 = nacteni('hodnoty1.txt')
+hodnoty2 = nacteni('hodnoty2.txt')
+seznam1 = [float(hodnota) for hodnota in hodnoty1.split(' ')]
+seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
 
-print(seznam_prunik)
+prunik = prunik(seznam1,seznam2)
+
+# TODO: Ulozeni vystupu do .txt souboru
+print(prunik)
