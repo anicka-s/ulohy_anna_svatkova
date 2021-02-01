@@ -33,5 +33,5 @@ seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
 prunik_posloupnosti = prunik(seznam1,seznam2)
 prunik_posloupnosti.sort()
 
-# TODO: Ulozeni vystupu do .txt souboru
-print(prunik_posloupnosti)
+with open('prunik_posloupnosti.txt', mode='w', encoding='utf-8') as output:   # w jako write >>> mode='a' -> append, tedy připojit na konec souboru
+    print(prunik_posloupnosti, file=output)
