@@ -15,15 +15,23 @@ def prunik(seznam_hodnot1,seznam_hodnot2):
                 seznam_prunik.append(cislo)
     return(seznam_prunik)
 
+# vyjimky:
+# osetreni souboru: neexistujici/prazdny/nepristupny vstupni soubor
+# neoddeleno mezerami: if neobsahuje ' '
+# des. carka nebo oddeleno carkami: if cislo obsahuje carku, nahradit teckou (-> rozlozi cyklus nize)
+# nebo vseobecne: pokud obsahuje soubor cokoliv jineho, nez cislice, tecky nebo mezery -> ukonceni (chyba formatu)
+# obecne osetreni erroru
+
 
 # >> PROGRAM <<
 hodnoty1 = nacteni('hodnoty1.txt')
 hodnoty2 = nacteni('hodnoty2.txt')
+# TODO: Vstup oddeleni carkou osetrit
 seznam1 = [float(hodnota) for hodnota in hodnoty1.split(' ')]
 seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
 
-prunik = prunik(seznam1,seznam2)
+prunik_posloupnosti = prunik(seznam1,seznam2)
+prunik_posloupnosti.sort()
 
-# TODO: Sort output?
 # TODO: Ulozeni vystupu do .txt souboru
-print(prunik)
+print(prunik_posloupnosti)
