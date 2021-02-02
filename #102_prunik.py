@@ -5,33 +5,22 @@ import re
 def nacteni(nazev_souboru):
     # TODO: Docstring
     if os.path.exists(nazev_souboru) and os.path.getsize(nazev_souboru) and os.access(nazev_souboru, os.R_OK) > 0:
-        try: # mozna nebude potreba
-            with open(nazev_souboru, mode='r', encoding='utf-8') as data:
-                # TODO: osetreni vstupy obsahuje jen '0123456789. '; musi obsahovat cislice
-
-                hodnoty = data.read()
-                doplnek_ok_znaky = r"[^-0-9\. ]"
-                cislice = r"[0-9]+"
-                if '  ' in hodnoty:
-                    print('Neplatné oddělení mezerami - nadbytek mezer.')
-                    exit()
-                elif re.match(doplnek_ok_znaky, hodnoty):
-                    print('Neplatný vstup - obsahuje nepodporované znaky.\n(Podporované jsou 0-9, minus, des. tečka, mezera.)')
-                    exit()
-                elif not re.search(cislice, hodnoty):
-                    print('Neplatný vstup - neobsahuje číselné hodnoty.')
-                    exit()
-                else:
-                    print("zatím to prošlo, ale není ještě validován formát")
-                    return(hodnoty)
-                    
-        except ValueError:
-            print("Vstupní soubor není v platném formátu.")
-            exit()
+        with open(nazev_souboru, mode='r', encoding='utf-8') as data:
+            hodnoty = str(data.read()).strip()
+            kontrola_struktury(hodnoty)
+            return(hodnoty)
     else:
         print("Vstupní soubor chybí, je prázdný, nebo k němu není povolen přístup.")
         exit()
 
+def kontrola_struktury(retezec):
+    # TODO: Docstring
+    struktura = r"^(-?\d+(\.?\d+)?)( -?\d+(\.?\d+)?)*$"
+    if re.match(struktura,retezec):
+        print("Struktura vstupního souboru je v pořádku.")
+    else:
+        print("Vstupní soubor nemá validní strukturu.")
+        exit()
 
 def prunik(seznam_hodnot1,seznam_hodnot2):
     # TODO: Docstring
@@ -41,11 +30,6 @@ def prunik(seznam_hodnot1,seznam_hodnot2):
             if cislo not in seznam_prunik:
                 seznam_prunik.append(cislo)
     return(seznam_prunik)
-
-# TODO: zamezeni vstupu obsahujicich napr. '..4.' ci '.4...4..' atd. -> obecne, bude vyhozeno
-# v ramci cyklu lines 39 a 40, kde to zjisti, ze format neni float ale str
-# TODO: a osetreni !-' tam kde nema bejt - v cyklu struktura regex
-
 
 
 # >> PROGRAM <<
