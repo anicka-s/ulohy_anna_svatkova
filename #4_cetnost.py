@@ -24,7 +24,14 @@ def nacteni(nazev_souboru):
         exit()
 
 def rozdeleni(retezec):
-    # TODO: Docstring
+    """Rozdeli retezec na jednotlive znaky, ulozi je do seznamu.
+
+    Nezahrnuje bile znaky (mezera, novy radek).
+
+    Vstup: retezec (str).
+
+    Vystup: seznam znaku (list).
+    """
     seznam_prvku = retezec.split()
     seznam_znaku = []
     for prvek in seznam_prvku:
