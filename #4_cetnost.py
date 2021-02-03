@@ -73,6 +73,3 @@ text = nacteni('vstupni_soubor.txt')
 vsechny_znaky = rozdeleni(text)
 cetnost = cetnost(vsechny_znaky)
 soubor_vystup(cetnost)
-
-# TODO: Sort output?
-# TODO: Bile znaky?

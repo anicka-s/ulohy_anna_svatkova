@@ -67,13 +67,13 @@ def soubor_vystup(vystupni_soubor):
     with open('prunik_posloupnosti.txt', mode='w', encoding='utf-8') as output:
         print(vystupni_soubor, file=output)
 
+
 # >> PROGRAM <<
 hodnoty1 = nacteni('hodnoty1.txt')
 hodnoty2 = nacteni('hodnoty2.txt')
+# tvorba seznamu z posloupnosti
 seznam1 = [float(hodnota) for hodnota in hodnoty1.split(' ')]
 seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
-
 prunik_posloupnosti = prunik(seznam1,seznam2)
 prunik_posloupnosti.sort()
-
 soubor_vystup(prunik_posloupnosti)
