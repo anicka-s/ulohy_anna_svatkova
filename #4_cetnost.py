@@ -40,7 +40,12 @@ def rozdeleni(retezec):
     return(seznam_znaku)
 
 def cetnost(seznam_vsech_znaku):
-    # TODO: Docstring
+    """Spocita cetnosti polozek vstupniho seznamu a vypise je do slovniku.
+
+    Vstup: seznam (list) jednotlivych znaku/prvku.
+
+    Vystup: slovnik (list) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
+    """
     slovnik_cetnost = {}
     for znak in seznam_vsech_znaku:
         if znak in slovnik_cetnost.keys():
@@ -53,7 +58,7 @@ def soubor_vystup(slovnik_cetnost_out):
     """Vytvori ve zdrojove slozce soubor cetnosti_znaku.txt, obsahujici vypsane cetnosti 
     znaku z globalniho vstupu.
     
-    Vstup: slovnik (list) se znaky a jejich cetnostmi. Cetnost kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
+    Vstup: slovnik (dict) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
 
     Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
     """
