@@ -25,14 +25,26 @@ def cetnost(seznam_vsech_znaku):
             slovnik_cetnost[znak] = 1
     return(slovnik_cetnost)
 
+def soubor_vystup(slovnik_cetnost_out):
+    # TODO: Aktualizovat docstring
+    """Vytvori ve zdrojove slozce soubor prunik_posloupnosti.txt, obsahujici seznam pruniku realnych
+    cisel globalnich vstupu.
+    
+    Vstup: seznam (list) pruniku hodnot.
+
+    Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
+    """
+    with open('cetnosti_znaku.txt', mode='w', encoding='utf-8') as output:
+        for znak_klic,znak_pocet in slovnik_cetnost_out.items():
+            pocet = f"Počet '{znak_klic}' v souboru je {znak_pocet}."
+            print(pocet, file=output)
+
 
 # >> PROGRAM <<
 text = nacteni('vstupni_soubor.txt')
 vsechny_znaky = rozdeleni(text)
 cetnost = cetnost(vsechny_znaky)
+soubor_vystup(cetnost)
 
 # TODO: Sort output?
 # TODO: Bile znaky?
-# TODO: Ulozeni vystupu do .txt souboru
-for znak_klic,znak_pocet in cetnost.items():
-    print(f"Počet '{znak_klic}' v souboru je {znak_pocet}.")
