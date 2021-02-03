@@ -1,10 +1,27 @@
+# #4 - VYPOCET CETNOSTI
+# Anna Svatkova, 3.BFGG, 2021
+
+import os
+
 # >> FUNKCE <<
 def nacteni(nazev_souboru):
-    # TODO: Docstring
-    # TODO: Osetreni chybnych vstupu - souborove chyby...
-    with open(nazev_souboru, mode='r', encoding='utf-8') as data:
-        vstupni_text = str(data.read())
-    return(vstupni_text)
+    """Nacte soubor, osetri souborove chyby vstupu.
+    
+    V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
+    chybach: neexistujici vstupni soubor, prazdny vstupni soubor, nepovolen přistup k vstupnimu
+    souboru (pravo cteni).
+
+    Vstup: nazev souboru (s priponou .txt).
+
+    Vystup: data ze souboru (str).
+    """
+    if os.path.exists(nazev_souboru) and os.path.getsize(nazev_souboru) and os.access(nazev_souboru, os.R_OK) > 0:
+        with open(nazev_souboru, mode='r', encoding='utf-8') as data:
+            vstupni_text = str(data.read())
+            return(vstupni_text)
+    else:
+        print("Vstupní soubor chybí, je prázdný, nebo k němu není povolen přístup.")
+        exit()
 
 def rozdeleni(retezec):
     # TODO: Docstring
