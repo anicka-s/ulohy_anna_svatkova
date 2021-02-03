@@ -26,11 +26,10 @@ def cetnost(seznam_vsech_znaku):
     return(slovnik_cetnost)
 
 def soubor_vystup(slovnik_cetnost_out):
-    # TODO: Aktualizovat docstring
-    """Vytvori ve zdrojove slozce soubor prunik_posloupnosti.txt, obsahujici seznam pruniku realnych
-    cisel globalnich vstupu.
+    """Vytvori ve zdrojove slozce soubor cetnosti_znaku.txt, obsahujici vypsane cetnosti 
+    znaku z globalniho vstupu.
     
-    Vstup: seznam (list) pruniku hodnot.
+    Vstup: slovnik (list) se znaky a jejich cetnostmi. Cetnost kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
 
     Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
     """
