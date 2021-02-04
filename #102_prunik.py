@@ -57,15 +57,15 @@ def prunik(seznam_hodnot1,seznam_hodnot2):
     return(seznam_prunik)
 
 def soubor_vystup(vystupni_soubor):
-    """Vytvori ve zdrojove slozce soubor prunik_posloupnosti.txt, obsahujici seznam pruniku realnych
-    cisel globalnich vstupu.
+    """Vytvori ve zdrojove slozce soubor prunik_posloupnosti.txt, obsahujici popis dat a
+    seznam pruniku prvku dvou posloupnosti z globalnich vstupu.
     
     Vstup: seznam (list) pruniku hodnot.
 
     Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
     """
     with open('prunik_posloupnosti.txt', mode='w', encoding='utf-8') as output:
-        print(vystupni_soubor, file=output)
+        print("Průnikem posloupností ze vstupních souborů jsou následující hodnoty:",vystupni_soubor, file=output)
 
 
 # >> PROGRAM <<
