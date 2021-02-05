@@ -47,7 +47,7 @@ def rozdeleni(retezec):
             seznam_znaku.append(znak)
     return(seznam_znaku)
 
-def cetnost(seznam_vsech_znaku):
+def cetnost(vstupni_retezec):
     """Spocita cetnosti polozek vstupniho seznamu a vypise je do slovniku.
 
     Vstup: seznam (list) jednotlivych znaku/prvku.
@@ -55,7 +55,7 @@ def cetnost(seznam_vsech_znaku):
     Vystup: slovnik (list) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
     """
     slovnik_cetnost = {}
-    for znak in seznam_vsech_znaku:
+    for znak in vstupni_retezec:
         if znak in slovnik_cetnost.keys():
             slovnik_cetnost[znak] = slovnik_cetnost[znak]+1
         else:
@@ -78,6 +78,5 @@ def soubor_vystup(slovnik_cetnost_out):
 
 # >> PROGRAM <<
 text = nacteni('vstupni_soubor.txt')
-vsechny_znaky = rozdeleni(text)
-cetnost = cetnost(vsechny_znaky)
+cetnost = cetnost(text)
 soubor_vystup(cetnost)
