@@ -77,7 +77,7 @@ def soubor_vystup(slovnik_cetnost_out):
 
 
 # >> PROGRAM <<
-text = nacteni('vstupni_soubor-.txt')
+text = nacteni('vstupni_soubor.txt')
 vsechny_znaky = rozdeleni(text)
 cetnost = cetnost(vsechny_znaky)
 soubor_vystup(cetnost)
