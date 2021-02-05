@@ -17,16 +17,24 @@ def nacteni(nazev_souboru):
 
     Vystup: data ze souboru (str).
     """
-    if os.path.exists(nazev_souboru) and os.path.getsize(nazev_souboru) and os.access(nazev_souboru, os.R_OK) > 0:
-        with open(nazev_souboru, mode='r', encoding='utf-8') as data:
-            hodnoty = str(data.read()).strip()
-            kontrola_struktury(hodnoty)
-            return(hodnoty)
+    if os.path.exists(nazev_souboru) == True:
+        if os.path.getsize(nazev_souboru) > 0:
+            try:
+                with open(nazev_souboru, mode='r', encoding='utf-8') as data:
+                    hodnoty = str(data.read()).strip()
+                    kontrola_struktury(hodnoty,nazev_souboru)
+                    return(hodnoty)
+            except PermissionError:
+                print(f"Ke vstupnímu souboru {nazev_souboru} není povolen přístup.")
+                exit()
+        else:
+            print(f"Vstupní soubor {nazev_souboru} je prázdný.")
+            exit()
     else:
-        print("Vstupní soubor chybí, je prázdný, nebo k němu není povolen přístup.")
+        print(f"Vstupní soubor {nazev_souboru} chybí.")
         exit()
 
-def kontrola_struktury(retezec):
+def kontrola_struktury(retezec,soubor):
     """Proveri, zda je retezec ve formatu posloupnosti realnych cisel.
     
     Oddelovacem je jedna mezera; pro desetinna cisla musi byt pouzita desetinna tecka,
@@ -34,11 +42,11 @@ def kontrola_struktury(retezec):
     V pripade nalezeni chyby ve strukture vstupu se program ukonci. V pripade validni
     struktury program neni prerusen, funkce do programu nic nevraci.
 
-    Vstup: retezec (str) posloupnosti realnych cisel oddelovanych mezerou.
+    Vstup: retezec (str) posloupnosti realnych cisel oddelovanych mezerou a nazev zdrojoveho souboru (str).
     """
-    struktura = r"^(-?\d+(\.?\d+)?)( -?\d+(\.?\d+)?)*$"
+    struktura = r"^(-?\d+(\.\d+)?)( -?\d+(\.\d+)?)*$"
     if re.match(struktura,retezec) is None:
-        print("Vstupní soubor nemá validní strukturu.")
+        print(f"Vstupní soubor {soubor} nemá validní strukturu.")
         exit()
         
 
