@@ -15,12 +15,20 @@ def nacteni(nazev_souboru):
 
     Vystup: data ze souboru (str).
     """
-    if os.path.exists(nazev_souboru) and os.path.getsize(nazev_souboru) and os.access(nazev_souboru, os.R_OK) > 0:
-        with open(nazev_souboru, mode='r', encoding='utf-8') as data:
-            vstupni_text = str(data.read())
-            return(vstupni_text)
+    if os.path.exists(nazev_souboru) == True:
+        if os.path.getsize(nazev_souboru) > 0:
+            try:
+                with open(nazev_souboru, mode='r', encoding='utf-8') as data:
+                    vstupni_text = str(data.read())
+                    return(vstupni_text)
+            except PermissionError:
+                print(f"Ke vstupnímu souboru {nazev_souboru} není povolen přístup.")
+                exit()
+        else:
+            print(f"Vstupní soubor {nazev_souboru} je prázdný.")
+            exit()
     else:
-        print("Vstupní soubor chybí, je prázdný, nebo k němu není povolen přístup.")
+        print(f"Vstupní soubor {nazev_souboru} chybí.")
         exit()
 
 def rozdeleni(retezec):
@@ -69,7 +77,7 @@ def soubor_vystup(slovnik_cetnost_out):
 
 
 # >> PROGRAM <<
-text = nacteni('vstupni_soubor.txt')
+text = nacteni('vstupni_soubor-.txt')
 vsechny_znaky = rozdeleni(text)
 cetnost = cetnost(vsechny_znaky)
 soubor_vystup(cetnost)
