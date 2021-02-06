@@ -31,31 +31,15 @@ def nacteni(nazev_souboru):
         print(f"Vstupní soubor {nazev_souboru} chybí.")
         exit()
 
-def rozdeleni(retezec):
-    """Rozdeli retezec na jednotlive znaky, ulozi je do seznamu.
+def cetnost(vstup):
+    """Spocita cetnosti polozek vstupu (str,list) a vypise je do slovniku.
 
-    Nezahrnuje bile znaky (mezera, novy radek).
+    Vstup: seznam (list) jednotlivych znaku/prvku nebo řetězec (str).
 
-    Vstup: retezec (str).
-
-    Vystup: seznam znaku (list).
-    """
-    seznam_prvku = retezec.split()
-    seznam_znaku = []
-    for prvek in seznam_prvku:
-        for znak in prvek:
-            seznam_znaku.append(znak)
-    return(seznam_znaku)
-
-def cetnost(vstupni_retezec):
-    """Spocita cetnosti polozek vstupniho seznamu a vypise je do slovniku.
-
-    Vstup: seznam (list) jednotlivych znaku/prvku.
-
-    Vystup: slovnik (list) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
+    Vystup: slovnik (dict) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
     """
     slovnik_cetnost = {}
-    for znak in vstupni_retezec:
+    for znak in vstup:
         if znak in slovnik_cetnost.keys():
             slovnik_cetnost[znak] = slovnik_cetnost[znak]+1
         else:
