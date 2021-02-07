@@ -17,7 +17,7 @@ def nacteni(nazev_souboru):
 
     Vystup: data ze souboru (str).
     """
-    if os.path.exists(nazev_souboru) == True:
+    if os.path.exists(nazev_souboru):
         if os.path.getsize(nazev_souboru) > 0:
             try:
                 with open(nazev_souboru, mode='r', encoding='utf-8') as data:
@@ -57,11 +57,23 @@ def prunik(seznam_hodnot1,seznam_hodnot2):
 
     Vystup: seznam hodnot (list) spolecnych pro oba vstupni seznamy.
     """
+    seznam_hodnot1.sort()
+    seznam_hodnot2.sort()
     seznam_prunik = []
-    for cislo in seznam_hodnot1:
-        if cislo in seznam_hodnot2:
-            if cislo not in seznam_prunik:
-                seznam_prunik.append(cislo)
+    i = 0
+    j = 0
+    while not seznam_hodnot1[i] == seznam_hodnot1[len(seznam_hodnot1)-1] or not seznam_hodnot2[j] == seznam_hodnot2[len(seznam_hodnot2)-1]:
+        if seznam_hodnot1[i] > seznam_hodnot2[j]:
+            print(f"seznam_hodnot1[{i}]: {seznam_hodnot1[i]} > seznam_hodnot2[{j}]: {seznam_hodnot2[j]}\n zvysuji hodnotu sh2")
+            j += 1
+        elif seznam_hodnot1[i] < seznam_hodnot2[j]:
+            print(f"seznam_hodnot1[{i}]: {seznam_hodnot1[i]} < seznam_hodnot2[{j}]: {seznam_hodnot2[j]}\n zvysuji hodnotu sh1")
+            i += 1
+        elif seznam_hodnot1[i] not in seznam_prunik: # i = j
+            print(f"seznam_hodnot1[{i}]: {seznam_hodnot1[i]} = seznam_hodnot2[{j}]: {seznam_hodnot2[j]}\n zapisuji hodnotu {seznam_hodnot1[i]} do pruniku")
+            seznam_prunik.append(seznam_hodnot1[i])
+            i += 1
+            j += 1
     return(seznam_prunik)
 
 def soubor_vystup(vystupni_soubor):
@@ -77,8 +89,8 @@ def soubor_vystup(vystupni_soubor):
 
 
 # >> PROGRAM <<
-hodnoty1 = nacteni('hodnoty1.txt')
-hodnoty2 = nacteni('hodnoty2.txt')
+hodnoty1 = nacteni('hodnoty1_cisla.txt')
+hodnoty2 = nacteni('hodnoty2_cisla.txt')
 # tvorba seznamu z posloupnosti
 seznam1 = [float(hodnota) for hodnota in hodnoty1.split(' ')]
 seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
