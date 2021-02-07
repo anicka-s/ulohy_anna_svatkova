@@ -13,15 +13,21 @@ def data_load():
 
     Vystup: data ze souboru (str).
     """
-    file_name = input('Zadejte jméno vstupního souboru včetne přípony:\n')
-    if os.path.exists(file_name):
-        if os.path.getsize(file_name) > 0:
+    file_name = input('Zadejte jméno vstupního textového souboru včetne přípony (.txt):\n')
+    if os.path.exists(file_name): # file existence
+        if os.path.getsize(file_name) > 50000000: # 50 megabytes > filesize > 0
+            print(f"Vstupní soubor {file_name} je příliš velký.")
+            exit()
+        elif os.path.getsize(file_name) > 0:
             try:
                 with open(file_name, mode='r', encoding='utf-8') as data:
                     input_text = str(data.read())
                     return(input_text)
-            except PermissionError:
+            except PermissionError: # file accessibility
                 print(f"Ke vstupnímu souboru {file_name} není povolen přístup.")
+                exit()
+            except UnicodeDecodeError: # binary exception
+                print(f"Vstupní soubor {file_name} není čitelný.")
                 exit()
         else:
             print(f"Vstupní soubor {file_name} je prázdný.")
