@@ -3,19 +3,18 @@
 
 import os
 
-# >> FUNKCE <<
-def nacteni(nazev_souboru):
-    """Nacte soubor, osetri souborove chyby vstupu.
+# >> FUNCTIONS <<
+def nacteni():
+    """Nacte soubor uzivatelem zadaneho nazvu, osetri souborove chyby vstupu.
     
     V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
     chybach: neexistujici vstupni soubor, prazdny vstupni soubor, nepovolen přistup k vstupnimu
     souboru (pravo cteni).
 
-    Vstup: nazev souboru (s priponou .txt).
-
     Vystup: data ze souboru (str).
     """
-    if os.path.exists(nazev_souboru) == True:
+    nazev_souboru = input('Zadejte jméno vstupního souboru včetne přípony:\n')
+    if os.path.exists(nazev_souboru):
         if os.path.getsize(nazev_souboru) > 0:
             try:
                 with open(nazev_souboru, mode='r', encoding='utf-8') as data:
@@ -61,6 +60,6 @@ def soubor_vystup(slovnik_cetnost_out):
 
 
 # >> PROGRAM <<
-text = nacteni('vstupni_soubor.txt')
+text = nacteni()
 cetnost = cetnost(text)
 soubor_vystup(cetnost)
