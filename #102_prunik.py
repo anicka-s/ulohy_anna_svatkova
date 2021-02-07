@@ -6,16 +6,16 @@ import re
 
 # >> FUNCTIONS <<
 def data_load(file_name):
-    """Nacte soubor, odstrani z obou koncu bile znaky, osetri souborove chyby vstupu.
+    """Loads file content, removes whitespaces from both ends, resolves input file errors.
     
-    V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
-    chybach: neexistujici vstupni soubor, prilis velky vstupni soubor (>50MB), prazdny vstupni soubor,
-    nepovolen pristup k vstupnimu souboru (pravo cteni), necitelny vstupni soubor.
-    Soucasti je i funkce pro kontrolu struktury.
+    In case of unusable input the program is terminated. Termination occurs in case of these errors:
+    non-existent input file, too large input file (>50MB), empty input file, unable to access input file
+    (read), unreadable input file.
+    Structure-checking function included.
 
-    Vstup: nazev souboru (s priponou).
+    Input: file name (with extension)
 
-    Vystup: data ze souboru (str).
+    Output: data from file (str).
     """
     if os.path.exists(file_name): # file existence
         if os.path.getsize(file_name) > 50000000: # 50 megabytes > filesize > 0
@@ -41,14 +41,14 @@ def data_load(file_name):
         exit()
 
 def structure_check(string,soubor):
-    """Proveri, zda je string ve formatu posloupnosti realnych cisel.
+    """Checks if the string has a structure of sequence of real numbers.
     
-    Oddelovacem je jedna mezera; pro desetinna cisla musi byt pouzita desetinna tecka,
-    nikoliv carka. Zapornym cislum musi predchazet '-' (minus, pomlcka).
-    V pripade nalezeni chyby ve strukture vstupu se program ukonci. V pripade validni
-    struktury program neni prerusen, funkce do programu nic nevraci.
+    Separator is one space; decimal dot must be used. Negative numbers with '-'.
+    Error in structure leads to termination. Valid structure lets the program continue.
+    No outputs.
 
-    Vstup: string (str) posloupnosti realnych cisel oddelovanych mezerou a nazev zdrojoveho souboru (str).
+    Input: string consisting of a sequence of real numbers separated by a space
+    and a name of source file (str).
     """
     structure = r"^(-?\d+(\.\d+)?)( -?\d+(\.\d+)?)*$"
     if re.match(structure,string) is None:
@@ -56,11 +56,11 @@ def structure_check(string,soubor):
         exit()
 
 def inters(list_values1,list_values2):
-    """Nalezne values (prvky), ktere jsou zaroven v obou dvou vstupnich seznamech.
+    """Finds values which are in both input lists.
     
-    Vstup: dva seznamy hodnot (list, list).
+    Input: two lists of values (list, list).
 
-    Vystup: seznam hodnot (list) spolecnych pro oba vstupni seznamy.
+    Output: list of values (list).
     """
     list_values1.sort()
     list_values2.sort()
@@ -79,12 +79,12 @@ def inters(list_values1,list_values2):
     return(list_inters)
 
 def file_out(output_file):
-    """Vytvori ve zdrojove slozce soubor prunik_posloupnosti.txt, obsahujici popis dat a
-    seznam pruniku prvku dvou posloupnosti z globalnich vstupu.
+    """Creates a file with name prunik_posloupnosti.txt in source folder, containing data info
+    and a list of intersecting numbers of two global input sequences.
     
-    Vstup: seznam (list) pruniku hodnot.
+    Input: list of intersecting values.
 
-    Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
+    Output: text file (.txt) into source folder. No in-program outputs.
     """
     with open('prunik_posloupnosti.txt', mode='w', encoding='utf-8') as output:
         print("Průnikem posloupností ze vstupních souborů jsou následující values:",output_file, file=output)
