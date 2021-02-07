@@ -5,13 +5,13 @@ import os
 
 # >> FUNCTIONS <<
 def data_load():
-    """Nacte soubor uzivatelem zadaneho nazvu, osetri souborove chyby vstupu.
+    """Loads content of user defined file, resolves input file errors.
     
-    V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
-    chybach: neexistujici vstupni soubor, prilis velky vstupni soubor (>50MB), prazdny vstupni soubor,
-    nepovolen pristup k vstupnimu souboru (pravo cteni), necitelny vstupni soubor.
+    In case of unusable input the program is terminated. Termination occurs in case of these errors:
+    non-existent input file, too large input file (>50MB), empty input file, unable to access input file
+    (read), unreadable input file.
 
-    Vystup: data ze souboru (str).
+    Output: data from file (str).
     """
     file_name = input('Zadejte jméno vstupního textového souboru včetne přípony (.txt):\n')
     if os.path.exists(file_name): # file existence
@@ -37,11 +37,12 @@ def data_load():
         exit()
 
 def char_frequency(vstup):
-    """Spocita cetnosti polozek vstupu (str,list) a vypise je do slovniku.
+    """Counts the frequency of characters in input (str,list) and creates a list out of them.
 
-    Vstup: seznam (list) jednotlivych znaku/prvku nebo řetězec (str).
+    Input: list of characters/elements or a string.
 
-    Vystup: slovnik (dict) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
+    Output: dictionary with characters and their counts.
+    Count (int) of each character of the text is under a key of that character (eg. 'a': 12).
     """
     frequency_dict = {}
     for char in vstup:
@@ -52,12 +53,12 @@ def char_frequency(vstup):
     return(frequency_dict)
 
 def file_output(frequency_dict_out):
-    """Vytvori ve zdrojove slozce soubor cetnosti_znaku.txt, obsahujici vypsane cetnosti 
-    znaku z globalniho vstupu.
-    
-    Vstup: slovnik (dict) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
+    """Creates a file with name cetnosti_znaku.txt in source folder, containing printed counts of characters of global input.
+   
+    Input: dictionary with characters and their counts.
+    Count (int) of each character of the text is under a key of that character (eg. 'a': 12).
 
-    Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
+    Output: text file (.txt) into source folder. No in-program outputs.
     """
     with open('cetnosti_znaku.txt', mode='w', encoding='utf-8') as output:
         for char_key,char_count in frequency_dict_out.items():
