@@ -8,8 +8,8 @@ def data_load():
     """Nacte soubor uzivatelem zadaneho nazvu, osetri souborove chyby vstupu.
     
     V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
-    chybach: neexistujici vstupni soubor, prazdny vstupni soubor, nepovolen přistup k vstupnimu
-    souboru (pravo cteni).
+    chybach: neexistujici vstupni soubor, prilis velky vstupni soubor (>50MB), prazdny vstupni soubor,
+    nepovolen pristup k vstupnimu souboru (pravo cteni), necitelny vstupni soubor.
 
     Vystup: data ze souboru (str).
     """

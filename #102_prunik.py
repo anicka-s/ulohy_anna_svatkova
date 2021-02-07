@@ -9,23 +9,29 @@ def data_load(file_name):
     """Nacte soubor, odstrani z obou koncu bile znaky, osetri souborove chyby vstupu.
     
     V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
-    chybach: neexistujici vstupni soubor, prazdny vstupni soubor, nepovolen přistup k vstupnimu
-    souboru (pravo cteni).
+    chybach: neexistujici vstupni soubor, prilis velky vstupni soubor (>50MB), prazdny vstupni soubor,
+    nepovolen pristup k vstupnimu souboru (pravo cteni), necitelny vstupni soubor.
     Soucasti je i funkce pro kontrolu struktury.
 
     Vstup: nazev souboru (s priponou).
 
     Vystup: data ze souboru (str).
     """
-    if os.path.exists(file_name):
-        if os.path.getsize(file_name) > 0:
+    if os.path.exists(file_name): # file existence
+        if os.path.getsize(file_name) > 50000000: # 50 megabytes > filesize > 0
+            print(f"Vstupní soubor {file_name} je příliš velký.")
+            exit()
+        elif os.path.getsize(file_name) > 0:
             try:
                 with open(file_name, mode='r', encoding='utf-8') as data:
                     values = str(data.read()).strip()
                     structure_check(values,file_name)
                     return(values)
-            except PermissionError:
+            except PermissionError: # file accessibility
                 print(f"Ke vstupnímu souboru {file_name} není povolen přístup.")
+                exit()
+            except UnicodeDecodeError: # binary exception
+                print(f"Vstupní soubor {file_name} není čitelný.")
                 exit()
         else:
             print(f"Vstupní soubor {file_name} je prázdný.")
