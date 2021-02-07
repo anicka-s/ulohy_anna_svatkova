@@ -1,11 +1,11 @@
-# #102 - PRUNIK POSLOUPNOSTI
+# #102 - PRUNIK POSLOUPNOSTI (intersection of sequences)
 # Anna Svatkova, 3.BFGG, 2021
 
 import os
 import re
 
-# >> FUNKCE <<
-def nacteni(nazev_souboru):
+# >> FUNCTIONS <<
+def data_load(file_name):
     """Nacte soubor, odstrani z obou koncu bile znaky, osetri souborove chyby vstupu.
     
     V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
@@ -13,67 +13,66 @@ def nacteni(nazev_souboru):
     souboru (pravo cteni).
     Soucasti je i funkce pro kontrolu struktury.
 
-    Vstup: nazev souboru (s priponou .txt).
+    Vstup: nazev souboru (s priponou).
 
     Vystup: data ze souboru (str).
     """
-    if os.path.exists(nazev_souboru):
-        if os.path.getsize(nazev_souboru) > 0:
+    if os.path.exists(file_name):
+        if os.path.getsize(file_name) > 0:
             try:
-                with open(nazev_souboru, mode='r', encoding='utf-8') as data:
-                    hodnoty = str(data.read()).strip()
-                    kontrola_struktury(hodnoty,nazev_souboru)
-                    return(hodnoty)
+                with open(file_name, mode='r', encoding='utf-8') as data:
+                    values = str(data.read()).strip()
+                    structure_check(values,file_name)
+                    return(values)
             except PermissionError:
-                print(f"Ke vstupnímu souboru {nazev_souboru} není povolen přístup.")
+                print(f"Ke vstupnímu souboru {file_name} není povolen přístup.")
                 exit()
         else:
-            print(f"Vstupní soubor {nazev_souboru} je prázdný.")
+            print(f"Vstupní soubor {file_name} je prázdný.")
             exit()
     else:
-        print(f"Vstupní soubor {nazev_souboru} chybí.")
+        print(f"Vstupní soubor {file_name} chybí.")
         exit()
 
-def kontrola_struktury(retezec,soubor):
-    """Proveri, zda je retezec ve formatu posloupnosti realnych cisel.
+def structure_check(string,soubor):
+    """Proveri, zda je string ve formatu posloupnosti realnych cisel.
     
     Oddelovacem je jedna mezera; pro desetinna cisla musi byt pouzita desetinna tecka,
     nikoliv carka. Zapornym cislum musi predchazet '-' (minus, pomlcka).
     V pripade nalezeni chyby ve strukture vstupu se program ukonci. V pripade validni
     struktury program neni prerusen, funkce do programu nic nevraci.
 
-    Vstup: retezec (str) posloupnosti realnych cisel oddelovanych mezerou a nazev zdrojoveho souboru (str).
+    Vstup: string (str) posloupnosti realnych cisel oddelovanych mezerou a nazev zdrojoveho souboru (str).
     """
-    struktura = r"^(-?\d+(\.\d+)?)( -?\d+(\.\d+)?)*$"
-    if re.match(struktura,retezec) is None:
+    structure = r"^(-?\d+(\.\d+)?)( -?\d+(\.\d+)?)*$"
+    if re.match(structure,string) is None:
         print(f"Vstupní soubor {soubor} nemá validní strukturu.")
         exit()
-        
 
-def prunik(seznam_hodnot1,seznam_hodnot2):
-    """Nalezne hodnoty (prvky), ktere jsou zaroven v obou dvou vstupnich seznamech.
+def inters(list_values1,list_values2):
+    """Nalezne values (prvky), ktere jsou zaroven v obou dvou vstupnich seznamech.
     
     Vstup: dva seznamy hodnot (list, list).
 
     Vystup: seznam hodnot (list) spolecnych pro oba vstupni seznamy.
     """
-    seznam_hodnot1.sort()
-    seznam_hodnot2.sort()
-    seznam_prunik = []
+    list_values1.sort()
+    list_values2.sort()
+    list_inters = []
     i = 0
     j = 0
-    while not seznam_hodnot1[i] == seznam_hodnot1[len(seznam_hodnot1)-1] or not seznam_hodnot2[j] == seznam_hodnot2[len(seznam_hodnot2)-1]:
-        if seznam_hodnot1[i] > seznam_hodnot2[j]:
+    while not list_values1[i] == list_values1[len(list_values1)-1] or not list_values2[j] == list_values2[len(list_values2)-1]:
+        if list_values1[i] > list_values2[j]:
             j += 1
-        elif seznam_hodnot1[i] < seznam_hodnot2[j]:
+        elif list_values1[i] < list_values2[j]:
             i += 1
-        elif seznam_hodnot1[i] not in seznam_prunik: # i = j
-            seznam_prunik.append(seznam_hodnot1[i])
+        elif list_values1[i] not in list_inters: # i = j
+            list_inters.append(list_values1[i])
             i += 1
             j += 1
-    return(seznam_prunik)
+    return(list_inters)
 
-def soubor_vystup(vystupni_soubor):
+def file_out(output_file):
     """Vytvori ve zdrojove slozce soubor prunik_posloupnosti.txt, obsahujici popis dat a
     seznam pruniku prvku dvou posloupnosti z globalnich vstupu.
     
@@ -82,15 +81,15 @@ def soubor_vystup(vystupni_soubor):
     Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
     """
     with open('prunik_posloupnosti.txt', mode='w', encoding='utf-8') as output:
-        print("Průnikem posloupností ze vstupních souborů jsou následující hodnoty:",vystupni_soubor, file=output)
+        print("Průnikem posloupností ze vstupních souborů jsou následující values:",output_file, file=output)
 
 
 # >> PROGRAM <<
-hodnoty1 = nacteni('hodnoty1_cisla.txt')
-hodnoty2 = nacteni('hodnoty2_cisla.txt')
-# tvorba seznamu z posloupnosti
-seznam1 = [float(hodnota) for hodnota in hodnoty1.split(' ')]
-seznam2 = [float(hodnota) for hodnota in hodnoty2.split(' ')]
-prunik_posloupnosti = prunik(seznam1,seznam2)
-prunik_posloupnosti.sort()
-soubor_vystup(prunik_posloupnosti)
+values1 = data_load('hodnoty1.txt')
+values2 = data_load('hodnoty2.txt')
+# creates list from the sequence
+seznam1 = [float(item) for item in values1.split(' ')]
+seznam2 = [float(item) for item in values2.split(' ')]
+inters_of_seq = inters(seznam1,seznam2)
+inters_of_seq.sort()
+file_out(inters_of_seq)
