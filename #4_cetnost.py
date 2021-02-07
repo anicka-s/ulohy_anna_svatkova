@@ -1,10 +1,10 @@
-# #4 - VYPOCET CETNOSTI
+# #4 - VYPOCET CETNOSTI (calculation of frequencies)
 # Anna Svatkova, 3.BFGG, 2021
 
 import os
 
 # >> FUNCTIONS <<
-def nacteni():
+def data_load():
     """Nacte soubor uzivatelem zadaneho nazvu, osetri souborove chyby vstupu.
     
     V pripade nepouzitelneho vstupu ukonci program. Ukonceni programu pri nasledujicich
@@ -13,39 +13,39 @@ def nacteni():
 
     Vystup: data ze souboru (str).
     """
-    nazev_souboru = input('Zadejte jméno vstupního souboru včetne přípony:\n')
-    if os.path.exists(nazev_souboru):
-        if os.path.getsize(nazev_souboru) > 0:
+    file_name = input('Zadejte jméno vstupního souboru včetne přípony:\n')
+    if os.path.exists(file_name):
+        if os.path.getsize(file_name) > 0:
             try:
-                with open(nazev_souboru, mode='r', encoding='utf-8') as data:
-                    vstupni_text = str(data.read())
-                    return(vstupni_text)
+                with open(file_name, mode='r', encoding='utf-8') as data:
+                    input_text = str(data.read())
+                    return(input_text)
             except PermissionError:
-                print(f"Ke vstupnímu souboru {nazev_souboru} není povolen přístup.")
+                print(f"Ke vstupnímu souboru {file_name} není povolen přístup.")
                 exit()
         else:
-            print(f"Vstupní soubor {nazev_souboru} je prázdný.")
+            print(f"Vstupní soubor {file_name} je prázdný.")
             exit()
     else:
-        print(f"Vstupní soubor {nazev_souboru} chybí.")
+        print(f"Vstupní soubor {file_name} chybí.")
         exit()
 
-def cetnost(vstup):
+def char_frequency(vstup):
     """Spocita cetnosti polozek vstupu (str,list) a vypise je do slovniku.
 
     Vstup: seznam (list) jednotlivych znaku/prvku nebo řetězec (str).
 
     Vystup: slovnik (dict) se znaky a jejich cetnostmi. Cetnost (int) kazdeho znaku textu pod klicem tohoto znaku (napr. 'a': 12).
     """
-    slovnik_cetnost = {}
-    for znak in vstup:
-        if znak in slovnik_cetnost.keys():
-            slovnik_cetnost[znak] = slovnik_cetnost[znak]+1
+    frequency_dict = {}
+    for char in vstup:
+        if char in frequency_dict.keys():
+            frequency_dict[char] = frequency_dict[char]+1
         else:
-            slovnik_cetnost[znak] = 1
-    return(slovnik_cetnost)
+            frequency_dict[char] = 1
+    return(frequency_dict)
 
-def soubor_vystup(slovnik_cetnost_out):
+def file_output(frequency_dict_out):
     """Vytvori ve zdrojove slozce soubor cetnosti_znaku.txt, obsahujici vypsane cetnosti 
     znaku z globalniho vstupu.
     
@@ -54,12 +54,12 @@ def soubor_vystup(slovnik_cetnost_out):
     Vystup: textovy soubor (.txt) do zdrojove do složky. Do programu funkce nic nevraci.
     """
     with open('cetnosti_znaku.txt', mode='w', encoding='utf-8') as output:
-        for znak_klic,znak_pocet in slovnik_cetnost_out.items():
-            pocet = f"Počet '{znak_klic}' v souboru je {znak_pocet}."
-            print(pocet, file=output)
+        for char_key,char_count in frequency_dict_out.items():
+            count = f"Počet '{char_key}' v souboru je {char_count}."
+            print(count, file=output)
 
 
 # >> PROGRAM <<
-text = nacteni()
-cetnost = cetnost(text)
-soubor_vystup(cetnost)
+text = data_load()
+char_frequency = char_frequency(text)
+file_output(char_frequency)
