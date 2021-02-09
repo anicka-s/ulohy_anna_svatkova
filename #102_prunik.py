@@ -1,4 +1,4 @@
-# #102 - PRUNIK POSLOUPNOSTI (intersection of sequences)
+# #102 - intersection of sequences
 # Anna Svatkova, 3.BFGG, 2021
 
 import os
@@ -19,7 +19,7 @@ def data_load(file_name):
     """
     if os.path.exists(file_name): # file existence
         if os.path.getsize(file_name) > 50000000: # 50 megabytes > filesize > 0
-            print(f"Vstupní soubor {file_name} je příliš velký.")
+            print(f"Input file {file_name} is too large.")
             exit()
         elif os.path.getsize(file_name) > 0:
             try:
@@ -28,19 +28,19 @@ def data_load(file_name):
                     structure_check(values,file_name)
                     return(values)
             except PermissionError: # file accessibility
-                print(f"Ke vstupnímu souboru {file_name} není povolen přístup.")
+                print(f"There is no access right to read the input file {file_name}.")
                 exit()
             except UnicodeDecodeError: # binary exception
-                print(f"Vstupní soubor {file_name} není čitelný.")
+                print(f"Input file {file_name} is not readable.")
                 exit()
         else:
-            print(f"Vstupní soubor {file_name} je prázdný.")
+            print(f"Input file {file_name} is empty.")
             exit()
     else:
-        print(f"Vstupní soubor {file_name} chybí.")
+        print(f"Input file {file_name} doesn't exist.")
         exit()
 
-def structure_check(string,soubor):
+def structure_check(string,file_n):
     """Checks if the string has a structure of sequence of real numbers.
     
     Separator is one space; decimal dot must be used. Negative numbers with '-'.
@@ -52,7 +52,7 @@ def structure_check(string,soubor):
     """
     structure = r"^(-?\d+(\.\d+)?)( -?\d+(\.\d+)?)*$"
     if re.match(structure,string) is None:
-        print(f"Vstupní soubor {soubor} nemá validní strukturu.")
+        print(f"The input file {file_n} does not have a valid structure.")
         exit()
 
 def inters(list_values1,list_values2):
@@ -86,16 +86,16 @@ def file_out(output_file):
 
     Output: text file (.txt) into source folder. No in-program outputs.
     """
-    with open('prunik_posloupnosti.txt', mode='w', encoding='utf-8') as output:
-        print("Průnikem posloupností ze vstupních souborů jsou následující values:",output_file, file=output)
+    with open('sequences_intersection.txt', mode='w', encoding='utf-8') as output:
+        print("The intersection of sequences from the input files are the following values:",output_file, file=output)
 
 
 # >> PROGRAM <<
-values1 = data_load('hodnoty1.txt')
-values2 = data_load('hodnoty2.txt')
+values1 = data_load('values1.txt')
+values2 = data_load('values2.txt')
 # creates list from the sequence
-seznam1 = [float(item) for item in values1.split(' ')]
-seznam2 = [float(item) for item in values2.split(' ')]
-inters_of_seq = inters(seznam1,seznam2)
+list1 = [float(item) for item in values1.split(' ')]
+list2 = [float(item) for item in values2.split(' ')]
+inters_of_seq = inters(list1,list2)
 inters_of_seq.sort()
 file_out(inters_of_seq)
