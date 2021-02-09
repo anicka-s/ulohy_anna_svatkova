@@ -37,7 +37,7 @@ def data_load(file_name):
             print(f"Input file {file_name} is empty.")
             exit()
     else:
-        print(f"Input file {file_name} doesn't exist.")
+        print(f"Input file {file_name} does not exist.")
         exit()
 
 def structure_check(string,file_n):
