@@ -79,7 +79,7 @@ def inters(list_values1,list_values2):
     return(list_inters)
 
 def file_out(output_file):
-    """Creates a file with name prunik_posloupnosti.txt in source folder, containing data info
+    """Creates a file with name sequences_intersection.txt in source folder, containing data info
     and a list of intersecting numbers of two global input sequences.
     
     Input: list of intersecting values.
