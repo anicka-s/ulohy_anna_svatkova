@@ -1,4 +1,4 @@
-# #4 - VYPOCET CETNOSTI (calculation of frequencies)
+# #4 - calculation of frequencies
 # Anna Svatkova, 3.BFGG, 2021
 
 import os
@@ -13,10 +13,10 @@ def data_load():
 
     Output: data from file (str).
     """
-    file_name = input('Zadejte jméno vstupního textového souboru včetne přípony (.txt):\n')
+    file_name = input('Enter the name of the input text file, including the extension:\n')
     if os.path.exists(file_name): # file existence
         if os.path.getsize(file_name) > 50000000: # 50 megabytes > filesize > 0
-            print(f"Vstupní soubor {file_name} je příliš velký.")
+            print(f"Input file {file_name} is too large.")
             exit()
         elif os.path.getsize(file_name) > 0:
             try:
@@ -24,19 +24,19 @@ def data_load():
                     input_text = str(data.read())
                     return(input_text)
             except PermissionError: # file accessibility
-                print(f"Ke vstupnímu souboru {file_name} není povolen přístup.")
+                print(f"There is no access right to read the input file {file_name}.")
                 exit()
             except UnicodeDecodeError: # binary exception
-                print(f"Vstupní soubor {file_name} není čitelný.")
+                print(f"Input file {file_name} is not readable.")
                 exit()
         else:
-            print(f"Vstupní soubor {file_name} je prázdný.")
+            print(f"Input file {file_name} is empty.")
             exit()
     else:
-        print(f"Vstupní soubor {file_name} chybí.")
+        print(f"Input file {file_name} does not exist.")
         exit()
 
-def char_frequency(vstup):
+def char_frequency(input_i):
     """Counts the frequency of characters in input (str,list) and creates a list out of them.
 
     Input: list of characters/elements or a string.
@@ -45,7 +45,7 @@ def char_frequency(vstup):
     Count (int) of each character of the text is under a key of that character (eg. 'a': 12).
     """
     frequency_dict = {}
-    for char in vstup:
+    for char in input_i:
         if char in frequency_dict.keys():
             frequency_dict[char] = frequency_dict[char]+1
         else:
@@ -53,16 +53,16 @@ def char_frequency(vstup):
     return(frequency_dict)
 
 def file_output(frequency_dict_out):
-    """Creates a file with name cetnosti_znaku.txt in source folder, containing printed counts of characters of global input.
+    """Creates a file with name char_frequencies.txt in source folder, containing printed counts of characters of global input.
    
     Input: dictionary with characters and their counts.
     Count (int) of each character of the text is under a key of that character (eg. 'a': 12).
 
     Output: text file (.txt) into source folder. No in-program outputs.
     """
-    with open('cetnosti_znaku.txt', mode='w', encoding='utf-8') as output:
+    with open('char_frequencies.txt', mode='w', encoding='utf-8') as output:
         for char_key,char_count in frequency_dict_out.items():
-            count = f"Počet '{char_key}' v souboru je {char_count}."
+            count = f"The number of '{char_key}' in the file is {char_count}."
             print(count, file=output)
 
 
